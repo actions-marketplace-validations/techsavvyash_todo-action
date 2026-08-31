@@ -20,9 +20,16 @@ declare module "tree-sitter" {
 
   export interface Language {}
 
+  export interface ParseOptions {
+    // Read-buffer size in bytes. Must exceed the input's UTF-8 byte
+    // length or Parser.parse throws "Invalid argument" (default 32 KiB).
+    bufferSize?: number;
+    includedRanges?: unknown[];
+  }
+
   export default class Parser {
     setLanguage(language: Language): void;
-    parse(input: string): Tree;
+    parse(input: string, oldTree?: Tree, options?: ParseOptions): Tree;
   }
 }
 
